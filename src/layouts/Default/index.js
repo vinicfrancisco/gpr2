@@ -1,13 +1,13 @@
 import React, { useCallback, useEffect, useState } from 'react';
 import { FiMenu /* FiChevronLeft */ } from 'react-icons/fi';
-import { useLocation, useHistory, Link } from 'react-router-dom';
+import { useLocation, /* useHistory, */ Link } from 'react-router-dom';
 import { Container, Menu } from './styles';
 
 function DefaultLayout() {
   const { pathname } = useLocation();
-  const { goBack } = useHistory();
+  // const { goBack } = useHistory();
 
-  const [showMenu, setShowMenu] = useState(true);
+  const [showMenu, setShowMenu] = useState(false);
 
   const getLeftIcon = useCallback(() => {
     switch (pathname) {
@@ -24,7 +24,7 @@ function DefaultLayout() {
           </button>
         );
     }
-  }, [pathname, showMenu, goBack]);
+  }, [pathname, showMenu /* goBack */]);
 
   const getTitle = useCallback(() => {
     switch (pathname) {
