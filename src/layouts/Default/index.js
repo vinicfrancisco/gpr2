@@ -28,6 +28,8 @@ function DefaultLayout() {
     switch (pathname) {
       case '/availability':
         return 'Disponibilidade';
+      case '/requests':
+        return 'Solicitações';
       default:
         return '';
     }
