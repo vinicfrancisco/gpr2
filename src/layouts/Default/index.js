@@ -30,6 +30,8 @@ function DefaultLayout() {
         return 'Disponibilidade';
       case '/requests':
         return 'Solicitações';
+      case '/rides':
+        return 'Caronas';
       default:
         return '';
     }
