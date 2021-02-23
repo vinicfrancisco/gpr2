@@ -2,6 +2,7 @@ import styled from 'styled-components';
 
 export const Container = styled.div`
   align-items: center;
+  background: #fff;
   border: 1px solid #d3d3d3;
   border-radius: 4px;
   display: flex;

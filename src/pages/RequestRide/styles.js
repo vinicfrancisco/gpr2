@@ -7,6 +7,7 @@ export const Container = styled.div`
   width: 100%;
 
   > section {
+    background: #fff;
     border: 1px solid #d3d3d3;
     display: flex;
     flex-direction: column;

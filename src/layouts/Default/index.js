@@ -26,6 +26,8 @@ function DefaultLayout() {
 
   const getTitle = useCallback(() => {
     switch (pathname) {
+      case '/':
+        return 'Home';
       case '/availability':
         return 'Disponibilidade';
       case '/requests':
