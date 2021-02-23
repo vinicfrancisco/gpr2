@@ -32,6 +32,8 @@ function DefaultLayout() {
         return 'Solicitações';
       case '/rides':
         return 'Caronas';
+      case '/request-ride':
+        return 'Solicitar carona';
       default:
         return '';
     }
