@@ -1,11 +1,14 @@
 import React from 'react';
+import { useHistory } from 'react-router-dom';
 import { FaCarAlt } from 'react-icons/fa';
 import { FiChevronRight } from 'react-icons/fi';
 import { Container, IconContainer, Info } from './styles';
 
 function RideItem() {
+  const { push } = useHistory();
+
   return (
-    <Container>
+    <Container onClick={() => push('/request-ride')}>
       <IconContainer>
         <FaCarAlt size={24} color="#272727" />
       </IconContainer>

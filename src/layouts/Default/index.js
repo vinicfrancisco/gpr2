@@ -1,28 +1,30 @@
-import React, { useCallback } from 'react';
-import { FiMenu, FiChevronLeft } from 'react-icons/fi';
-import { useLocation, useHistory } from 'react-router-dom';
-import { Container } from './styles';
+import React, { useCallback, useEffect, useState } from 'react';
+import { FiMenu /* FiChevronLeft */ } from 'react-icons/fi';
+import { useLocation, useHistory, Link } from 'react-router-dom';
+import { Container, Menu } from './styles';
 
 function DefaultLayout() {
   const { pathname } = useLocation();
   const { goBack } = useHistory();
 
+  const [showMenu, setShowMenu] = useState(true);
+
   const getLeftIcon = useCallback(() => {
     switch (pathname) {
-      case '/availability':
-        return (
-          <button type="button" onClick={goBack}>
-            <FiChevronLeft size={36} color="#fff" />
-          </button>
-        );
+      // case '/availability':
+      //   return (
+      //     <button type="button" onClick={goBack}>
+      //       <FiChevronLeft size={36} color="#fff" />
+      //     </button>
+      //   );
       default:
         return (
-          <button type="button" onClick={() => null}>
+          <button type="button" onClick={() => setShowMenu(!showMenu)}>
             <FiMenu size={36} color="#fff" />
           </button>
         );
     }
-  }, [pathname, goBack]);
+  }, [pathname, showMenu, goBack]);
 
   const getTitle = useCallback(() => {
     switch (pathname) {
@@ -41,14 +43,36 @@ function DefaultLayout() {
     }
   }, [pathname]);
 
+  useEffect(() => {
+    setShowMenu(false);
+  }, [pathname]);
+
   return (
-    <Container>
-      {getLeftIcon()}
+    <>
+      <Menu open={showMenu}>
+        <ul>
+          <li>
+            <Link to="/rides">Caronas</Link>
+          </li>
 
-      <h1>{getTitle()}</h1>
+          <li>
+            <Link to="/requests">Solicitações</Link>
+          </li>
 
-      <div />
-    </Container>
+          <li>
+            <Link to="/availability">Disponibilidade</Link>
+          </li>
+        </ul>
+      </Menu>
+
+      <Container>
+        {getLeftIcon()}
+
+        <h1>{getTitle()}</h1>
+
+        <div />
+      </Container>
+    </>
   );
 }
 
