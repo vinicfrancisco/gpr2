@@ -1,14 +1,29 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
+import api from '~/services/api';
 import RideItem from './components/RideItem';
 import { Container } from './styles';
 
-const data = [1, 2, 3, 4, 5, 6, 7];
-
 function Rides() {
+  const [rides, setRides] = useState([]);
+
+  useEffect(() => {
+    async function loadRides() {
+      try {
+        const { data } = await api.get('/carona');
+
+        setRides(data);
+      } catch (err) {
+        console.log(err);
+      }
+    }
+
+    loadRides();
+  }, []);
+
   return (
     <Container>
-      {data.map((item) => (
-        <RideItem key={String(item)} />
+      {rides.map((ride) => (
+        <RideItem data={ride} key={String(ride)} />
       ))}
     </Container>
   );

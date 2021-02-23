@@ -52,6 +52,10 @@ function DefaultLayout() {
       <Menu open={showMenu}>
         <ul>
           <li>
+            <Link to="/">Home</Link>
+          </li>
+
+          <li>
             <Link to="/rides">Caronas</Link>
           </li>
 

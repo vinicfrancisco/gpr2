@@ -30,8 +30,8 @@ export const FinishButton = styled.div`
     transition: all 0.5s;
     width: 100%;
 
-    &:hover {
-      opacity: 0.7;
+    &:disabled {
+      opacity: 0.5;
     }
   }
 `;

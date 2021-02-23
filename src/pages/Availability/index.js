@@ -1,24 +1,50 @@
-import React, { useCallback } from 'react';
+import React, { useCallback, useState } from 'react';
 import { Form } from '@unform/web';
 import { v4 as uuid } from 'uuid';
+import { useHistory } from 'react-router-dom';
 import Input from '~/components/Input';
 import Checkbox from '~/components/Checkbox';
+import api from '~/services/api';
 import { Container, FinishButton } from './styles';
 
 const daysOptions = [
-  { id: uuid(), value: 'week-days', label: 'Dias da semana' },
-  { id: uuid(), value: 'monday', label: 'Segunda-feira' },
-  { id: uuid(), value: 'tuesday', label: 'Terça-feira' },
-  { id: uuid(), value: 'wednesday', label: 'Quarta-feira' },
-  { id: uuid(), value: 'thursday', label: 'Quinta-feira' },
-  { id: uuid(), value: 'friday', label: 'Sexta-feira' },
-  { id: uuid(), value: 'saturday', label: 'Sábado' },
+  { id: uuid(), value: 'Dias da semana', label: 'Dias da semana' },
+  { id: uuid(), value: 'Seg', label: 'Segunda-feira' },
+  { id: uuid(), value: 'Ter', label: 'Terça-feira' },
+  { id: uuid(), value: 'Qua', label: 'Quarta-feira' },
+  { id: uuid(), value: 'Qui', label: 'Quinta-feira' },
+  { id: uuid(), value: 'Sex', label: 'Sexta-feira' },
+  { id: uuid(), value: 'Sab', label: 'Sábado' },
 ];
 
 function Availability() {
-  const handleSubmit = useCallback((data) => {
-    console.log(data);
-  }, []);
+  const { push } = useHistory();
+
+  const [loading, setLoading] = useState(false);
+
+  const handleSubmit = useCallback(
+    async (data) => {
+      try {
+        setLoading(true);
+
+        await api.post('/carona', {
+          origem: data.location,
+          vagasDisponiveis: data.quantity,
+          diasDisponiveis: data.days.join(', '),
+          motorista: data.driver,
+          horario: data.time,
+          contato: data.contact,
+        });
+
+        push('/rides');
+      } catch (err) {
+        console.log(err);
+      } finally {
+        setLoading(false);
+      }
+    },
+    [push]
+  );
 
   return (
     <Container>
@@ -56,7 +82,9 @@ function Availability() {
         <Checkbox name="days" options={daysOptions} />
 
         <FinishButton>
-          <button type="submit">Confirmar</button>
+          <button disabled={loading} type="submit">
+            Confirmar
+          </button>
         </FinishButton>
       </Form>
     </Container>
