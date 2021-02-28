@@ -17,6 +17,8 @@ function DefaultLayout() {
       //       <FiChevronLeft size={36} color="#fff" />
       //     </button>
       //   );
+      case '/login':
+        return <></>;
       default:
         return (
           <button type="button" onClick={() => setShowMenu(!showMenu)}>
@@ -30,6 +32,8 @@ function DefaultLayout() {
     switch (pathname) {
       case '/':
         return 'Home';
+      case '/login':
+        return 'Login';
       case '/availability':
         return 'Disponibilidade';
       case '/requests':
