@@ -6,7 +6,7 @@ import Input from '~/components/Input';
 import api from '~/services/api';
 import { Container, LoginButton, IconContainer } from './styles';
 
-function Login() {
+function SignUp() {
   const { push } = useHistory();
 
   const [loading, setLoading] = useState(false);
@@ -16,12 +16,17 @@ function Login() {
       try {
         setLoading(true);
 
-        await api.post('/login', {
-          email: data.email,
-          pass: data.pass,
-        });
+        if (data.email.includes('udesc.br')) {
+          if (data.password === data.confirmPass) {
+            await api.post('/user/create', {
+              name: data.name,
+              email: data.email,
+              password: data.password,
+            });
 
-        push('/rides');
+            push('/rides');
+          }
+        }
       } catch (err) {
         console.log(err);
       } finally {
@@ -37,15 +42,21 @@ function Login() {
         <FaCarAlt size={50} color="#272727" />
       </IconContainer>
       <Form onSubmit={handleSubmit}>
-        <Input name="user" placeholder="E-mail" />
-        <Input name="pass" type="password" placeholder="Senha" />
+        <Input name="name" placeholder="Digite seu Nome Completo" />
+        <Input name="email" type="email" placeholder="Digite seu E-mail" />
+        <Input name="password" type="password" placeholder="Senha" />
+        <Input
+          name="confirmPass"
+          type="password"
+          placeholder="Confirme sua Senha"
+        />
 
         <LoginButton disabled={loading} type="submit">
-          Login
+          Registrar
         </LoginButton>
       </Form>
     </Container>
   );
 }
 
-export default Login;
+export default SignUp;

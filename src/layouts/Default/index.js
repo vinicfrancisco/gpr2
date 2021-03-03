@@ -1,24 +1,30 @@
 import React, { useCallback, useEffect, useState } from 'react';
-import { FiMenu /* FiChevronLeft */ } from 'react-icons/fi';
-import { useLocation, /* useHistory, */ Link } from 'react-router-dom';
+import { FiMenu, FiChevronLeft } from 'react-icons/fi';
+import { useLocation, useHistory, Link } from 'react-router-dom';
 import { Container, Menu } from './styles';
 
 function DefaultLayout() {
   const { pathname } = useLocation();
-  // const { goBack } = useHistory();
+  const history = useHistory();
 
   const [showMenu, setShowMenu] = useState(false);
 
   const getLeftIcon = useCallback(() => {
     switch (pathname) {
-      // case '/availability':
-      //   return (
-      //     <button type="button" onClick={goBack}>
-      //       <FiChevronLeft size={36} color="#fff" />
-      //     </button>
-      //   );
-      case '/login':
+      case '/availability':
+        return (
+          <button type="button" onClick={() => history.goBack()}>
+            <FiChevronLeft size={36} color="#fff" />
+          </button>
+        );
+      case '/signin':
         return <></>;
+      case '/signup':
+        return (
+          <button type="button" onClick={() => history.goBack()}>
+            <FiChevronLeft size={36} color="#fff" />
+          </button>
+        );
       default:
         return (
           <button type="button" onClick={() => setShowMenu(!showMenu)}>
@@ -26,14 +32,16 @@ function DefaultLayout() {
           </button>
         );
     }
-  }, [pathname, showMenu /* goBack */]);
+  }, [pathname, showMenu, history]);
 
   const getTitle = useCallback(() => {
     switch (pathname) {
       case '/':
         return 'Home';
-      case '/login':
+      case '/signin':
         return 'Login';
+      case '/signup':
+        return 'Cadastro';
       case '/availability':
         return 'Disponibilidade';
       case '/requests':
