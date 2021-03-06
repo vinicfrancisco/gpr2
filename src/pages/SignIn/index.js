@@ -15,13 +15,15 @@ function SignIn() {
     async (data) => {
       try {
         setLoading(true);
-
-        await api.post('/auth/login', {
+        const { data: response } = await api.post('/auth/login', {
           email: data.email,
           password: data.password,
         });
-
-        push('/rides');
+        console.log(response);
+        if (response.id) {
+          localStorage.setItem('TOKEN_KEY', response.id);
+          push('/home');
+        }
       } catch (err) {
         console.log(err);
       } finally {
@@ -37,7 +39,7 @@ function SignIn() {
         <FaCarAlt size={50} color="#272727" />
       </IconContainer>
       <Form onSubmit={handleSubmit}>
-        <Input name="user" placeholder="E-mail" />
+        <Input name="email" placeholder="E-mail" />
         <Input name="password" type="password" placeholder="Senha" />
 
         <LoginButton disabled={loading} type="submit">

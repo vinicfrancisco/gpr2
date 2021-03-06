@@ -13,8 +13,8 @@ import SignUp from '~/pages/SignUp';
 function Routes() {
   return (
     <Switch>
-      <Route path="/" exact component={Home} />
-      <Route path="/signin" exact component={SignIn} />
+      <Route path="/" exact component={SignIn} />
+      <Route path="/home" exact component={Home} />
       <Route path="/signup" exact component={SignUp} />
       <Route path="/availability" exact component={Availability} />
       <Route path="/requests" exact component={Requests} />
