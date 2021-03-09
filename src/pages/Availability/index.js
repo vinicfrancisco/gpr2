@@ -8,7 +8,6 @@ import api from '~/services/api';
 import { Container, FinishButton } from './styles';
 
 const daysOptions = [
-  { id: uuid(), value: 'Dias da semana', label: 'Dias da semana' },
   { id: uuid(), value: 'Seg', label: 'Segunda-feira' },
   { id: uuid(), value: 'Ter', label: 'Terça-feira' },
   { id: uuid(), value: 'Qua', label: 'Quarta-feira' },
