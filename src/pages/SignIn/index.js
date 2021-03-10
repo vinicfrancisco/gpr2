@@ -19,7 +19,6 @@ function SignIn() {
           email: data.email,
           password: data.password,
         });
-        console.log(response);
         if (response.id) {
           localStorage.setItem('TOKEN_KEY', response.id);
           push('/home');

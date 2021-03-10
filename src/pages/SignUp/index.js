@@ -24,7 +24,7 @@ function SignUp() {
               password: data.password,
             });
 
-            push('/rides');
+            push('/');
           }
         }
       } catch (err) {
