@@ -1,9 +1,35 @@
-import React from 'react';
-import { useLocation } from 'react-router-dom';
+import React, { useEffect } from 'react';
+import { useLocation, useHistory } from 'react-router-dom';
 import { Container } from './styles';
+import api from '~/services/api';
 
 function RequestRide() {
   const { state } = useLocation();
+  const { push } = useHistory();
+
+  useEffect(() => {
+    async function loadRides() {
+      try {
+        const res = await api.get(`/user/motorista/${state.ride.motorista}`);
+        console.log(res.data.name);
+      } catch (err) {
+        console.log(err);
+      }
+    }
+    loadRides();
+  }, [state]);
+
+  async function handleSubmit() {
+    try {
+      await api.post(`/carona/solicitar`, {
+        idCarona: state.ride.id,
+        idUser: localStorage.TOKEN_KEY,
+      });
+      push('/home');
+    } catch (err) {
+      console.log(err);
+    }
+  }
 
   return (
     <Container>
@@ -11,7 +37,7 @@ function RequestRide() {
         <div>
           <strong>Motorista:</strong>
 
-          <span>{state?.ride.motorista || ''}</span>
+          <span>{state?.ride.name || ''}</span>
         </div>
 
         <div>
@@ -38,7 +64,7 @@ function RequestRide() {
           <span>{state?.ride.diasDisponiveis}</span>
         </div>
 
-        <button type="button" onClick={() => null}>
+        <button type="button" onClick={() => handleSubmit()}>
           SOLICITAR
         </button>
       </section>

@@ -30,7 +30,7 @@ function Availability() {
           origem: data.location,
           vagasDisponiveis: data.quantity,
           diasDisponiveis: data.days.join(', '),
-          motorista: data.driver,
+          motorista: localStorage.TOKEN_KEY,
           horario: data.time,
           contato: data.contact,
         });
@@ -48,12 +48,6 @@ function Availability() {
   return (
     <Container>
       <Form onSubmit={handleSubmit}>
-        <Input
-          name="driver"
-          label="Motorista"
-          placeholder="Digite o nome do motorista"
-        />
-
         <Input
           name="time"
           label="Horário de saída"

@@ -1,14 +1,32 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
+import api from '~/services/api';
 import RequestItem from './components/RequestItem';
 import { Container } from './styles';
 
-const data = [1, 2, 3, 4, 5, 6, 7];
-
 function Requests() {
+  const [myRides, setMyRides] = useState([]);
+
+  useEffect(() => {
+    async function loadMyRides() {
+      try {
+        const { data } = await api.get(
+          `/user/motorista/caronas/${localStorage.TOKEN_KEY}`
+        );
+        console.log('teste');
+        console.log(data);
+        setMyRides(data);
+      } catch (err) {
+        console.log(err);
+      }
+    }
+
+    loadMyRides();
+  }, []);
+
   return (
     <Container>
-      {data.map((item) => (
-        <RequestItem key={String(item)} />
+      {myRides?.map((item) => (
+        <RequestItem data={item} key={String(item)} />
       ))}
     </Container>
   );

@@ -1,22 +1,28 @@
 import React, { useCallback, useEffect, useState } from 'react';
-import { FiMenu /* FiChevronLeft */ } from 'react-icons/fi';
-import { useLocation, /* useHistory, */ Link } from 'react-router-dom';
+import { FiMenu, FiChevronLeft, FiLogOut } from 'react-icons/fi';
+import { useLocation, useHistory, Link } from 'react-router-dom';
 import { Container, Menu } from './styles';
+import api from '~/services/api';
 
 function DefaultLayout() {
   const { pathname } = useLocation();
-  // const { goBack } = useHistory();
+  const history = useHistory();
 
+  const { push } = useHistory();
   const [showMenu, setShowMenu] = useState(false);
 
   const getLeftIcon = useCallback(() => {
     switch (pathname) {
-      // case '/availability':
-      //   return (
-      //     <button type="button" onClick={goBack}>
-      //       <FiChevronLeft size={36} color="#fff" />
-      //     </button>
-      //   );
+      case '/':
+        return <></>;
+      case '/availability':
+      case '/request-ride':
+      case '/signup':
+        return (
+          <button type="button" onClick={() => history.goBack()}>
+            <FiChevronLeft size={36} color="#fff" />
+          </button>
+        );
       default:
         return (
           <button type="button" onClick={() => setShowMenu(!showMenu)}>
@@ -24,12 +30,27 @@ function DefaultLayout() {
           </button>
         );
     }
-  }, [pathname, showMenu /* goBack */]);
+  }, [pathname, showMenu, history]);
+
+  const handleClearToken = useCallback(async () => {
+    try {
+      await api.get('/users/logout', '');
+      push('/');
+    } catch (err) {
+      console.log(err);
+    } finally {
+      localStorage.removeItem('TOKEN_KEY');
+    }
+  });
 
   const getTitle = useCallback(() => {
     switch (pathname) {
       case '/':
+        return 'Login';
+      case '/home':
         return 'Home';
+      case '/signup':
+        return 'Cadastro';
       case '/availability':
         return 'Disponibilidade';
       case '/requests':
@@ -52,19 +73,22 @@ function DefaultLayout() {
       <Menu open={showMenu}>
         <ul>
           <li>
-            <Link to="/">Home</Link>
+            <Link to="/home">Home</Link>
           </li>
-
           <li>
             <Link to="/rides">Caronas</Link>
           </li>
-
           <li>
             <Link to="/requests">Solicitações</Link>
           </li>
-
           <li>
             <Link to="/availability">Disponibilidade</Link>
+          </li>
+          <li>
+            <FiLogOut />
+            <Link to="/" onClick={() => handleClearToken()}>
+              Sair
+            </Link>
           </li>
         </ul>
       </Menu>
