@@ -2,7 +2,24 @@ import React from 'react';
 import { FiUser, FiCheck, FiX } from 'react-icons/fi';
 import { Container, IconContainer, Info, Buttons } from './styles';
 
-function RequestItem() {
+function RequestItem({ data }) {
+  // const handleApprove = useCallback(
+  //   async (data) => {
+  //     try {
+  //       await api.get('/auth/login', {
+  //         email: data.email,
+  //         password: data.password,
+  //       });
+  //
+  //         push('/home');
+  //
+  //     } catch (err) {
+  //       console.log(err);
+  //     }
+  //     }
+  //   }
+  // );
+  console.log(data);
   return (
     <Container>
       <IconContainer>

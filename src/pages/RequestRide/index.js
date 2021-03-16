@@ -1,10 +1,11 @@
 import React, { useEffect } from 'react';
-import { useLocation } from 'react-router-dom';
+import { useLocation, useHistory } from 'react-router-dom';
 import { Container } from './styles';
 import api from '~/services/api';
 
 function RequestRide() {
   const { state } = useLocation();
+  const { push } = useHistory();
 
   useEffect(() => {
     async function loadRides() {
@@ -24,6 +25,7 @@ function RequestRide() {
         idCarona: state.ride.id,
         idUser: localStorage.TOKEN_KEY,
       });
+      push('/home');
     } catch (err) {
       console.log(err);
     }

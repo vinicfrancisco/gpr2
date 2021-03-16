@@ -10,7 +10,6 @@ function Rides() {
     async function loadRides() {
       try {
         const { data } = await api.get('/carona');
-
         setRides(data);
       } catch (err) {
         console.log(err);
