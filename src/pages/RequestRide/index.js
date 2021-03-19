@@ -1,17 +1,17 @@
-import React, { useEffect } from 'react';
+import React, { useEffect /* useState */ } from 'react';
 import { useLocation, useHistory } from 'react-router-dom';
 import { Container } from './styles';
 import api from '~/services/api';
 
 function RequestRide() {
   const { state } = useLocation();
+  // const [rideData, setRideData] = useState([]);
   const { push } = useHistory();
 
   useEffect(() => {
     async function loadRides() {
       try {
-        const res = await api.get(`/user/motorista/${state.ride.motorista}`);
-        console.log(res.data.name);
+        await api.get(`/carona/motorista/${state.ride.motorista}`);
       } catch (err) {
         console.log(err);
       }

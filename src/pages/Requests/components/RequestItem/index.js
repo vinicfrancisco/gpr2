@@ -1,25 +1,29 @@
 import React from 'react';
 import { FiUser, FiCheck, FiX } from 'react-icons/fi';
+import { useHistory } from 'react-router-dom';
+import api from '~/services/api';
 import { Container, IconContainer, Info, Buttons } from './styles';
 
 function RequestItem({ data }) {
-  // const handleApprove = useCallback(
-  //   async (data) => {
-  //     try {
-  //       await api.get('/auth/login', {
-  //         email: data.email,
-  //         password: data.password,
-  //       });
-  //
-  //         push('/home');
-  //
-  //     } catch (err) {
-  //       console.log(err);
-  //     }
-  //     }
-  //   }
-  // );
-  console.log(data);
+  const { push } = useHistory();
+
+  async function handleApprove() {
+    try {
+      await api.get(`/carona/aprovar/${data.user_id}`);
+      push('/home');
+    } catch (err) {
+      console.log(err);
+    }
+  }
+
+  async function handleDisapprove() {
+    try {
+      await api.get(`/carona/reprovar/${data.user_id}`);
+      push('/home');
+    } catch (err) {
+      console.log(err);
+    }
+  }
   return (
     <Container>
       <IconContainer>
@@ -34,11 +38,11 @@ function RequestItem({ data }) {
       </Info>
 
       <Buttons>
-        <button type="button">
+        <button type="button" onClick={() => handleDisapprove()}>
           <FiX size={36} color="#F32013" />
         </button>
 
-        <button type="button">
+        <button type="button" onClick={() => handleApprove()}>
           <FiCheck size={36} color="#5cb85c" />
         </button>
       </Buttons>
