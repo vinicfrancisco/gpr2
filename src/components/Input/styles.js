@@ -23,4 +23,9 @@ export const Container = styled.div`
     padding: 0 8px;
     width: 100%;
   }
+
+  span {
+    font-size: 12px;
+    color  : red
+  }
 `;
