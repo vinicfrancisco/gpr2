@@ -9,6 +9,8 @@ import Rides from '~/pages/Rides';
 import RequestRide from '~/pages/RequestRide';
 import SignIn from '~/pages/SignIn';
 import SignUp from '~/pages/SignUp';
+import RateDriver from '~/pages/Rate/Driver';
+import RateHitchhiker from '~/pages/Rate/Hitchhiker';
 
 function Routes() {
   return (
@@ -20,6 +22,8 @@ function Routes() {
       <Route path="/requests" exact component={Requests} />
       <Route path="/rides" exact component={Rides} />
       <Route path="/request-ride" exact component={RequestRide} />
+      <Route path="/rate/driver" exact component={RateDriver} />
+      <Route path="/rate/hitchhiker" exact component={RateHitchhiker} />
     </Switch>
   );
 }

@@ -59,6 +59,10 @@ function DefaultLayout() {
         return 'Caronas';
       case '/request-ride':
         return 'Solicitar carona';
+      case '/rate/driver':
+        return 'Avaliar motorista';
+      case '/rate/hitchhiker':
+        return 'Avaliar caroneiro';
       default:
         return '';
     }
