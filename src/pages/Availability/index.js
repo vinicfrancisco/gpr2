@@ -1,11 +1,13 @@
-import React, { useCallback, useState } from 'react';
+import React, { useCallback, useRef, useState } from 'react';
 import { Form } from '@unform/web';
 import { v4 as uuid } from 'uuid';
 import { useHistory } from 'react-router-dom';
+import * as Yup from 'yup';
 import Input from '~/components/Input';
 import Checkbox from '~/components/Checkbox';
 import api from '~/services/api';
 import { Container, FinishButton } from './styles';
+import getValidationErrors from '~/utils/getValidationErrors';
 
 const daysOptions = [
   { id: uuid(), value: 'Seg', label: 'Segunda-feira' },
@@ -21,10 +23,25 @@ function Availability() {
 
   const [loading, setLoading] = useState(false);
 
+  const formRef = useRef(null);
+
   const handleSubmit = useCallback(
     async (data) => {
       try {
         setLoading(true);
+
+        const schema = Yup.object().shape({
+          driver    : Yup.string().required("Campo Motorista é obrigatório."),
+          time      : Yup.string().required("Campo Horário de saída é obrigatório."),
+          quantity  : Yup.string().required("Campo Quantidade de passageiros é obrigatório."),
+          location  : Yup.string().required("Campo Local de origem é obrigatório."),
+          contact   : Yup.string().required("Campo Contato de origem é obrigatório."),
+          days      : Yup.string().required('Informe pelo menos um dia')
+        });
+
+        await schema.validate(data, {
+          abortEarly: false,
+        });
 
         await api.post('/carona', {
           origem: data.location,
@@ -37,6 +54,10 @@ function Availability() {
 
         push('/rides');
       } catch (err) {
+        if (err instanceof Yup.ValidationError) {
+          const errors = getValidationErrors(err);
+          formRef.current.setErrors(errors);
+        }
         console.log(err);
       } finally {
         setLoading(false);
@@ -47,7 +68,7 @@ function Availability() {
 
   return (
     <Container>
-      <Form onSubmit={handleSubmit}>
+      <Form ref={formRef} onSubmit={handleSubmit}>
         <Input
           name="time"
           label="Horário de saída"
