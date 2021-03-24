@@ -5,7 +5,6 @@ import api from '~/services/api';
 
 function RequestRide() {
   const { state } = useLocation();
-  // const [rideData, setRideData] = useState([]);
   const { push } = useHistory();
 
   useEffect(() => {

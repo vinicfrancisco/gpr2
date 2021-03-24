@@ -14,7 +14,6 @@ function RideItem({ data }) {
       </IconContainer>
 
       <Info>
-
         <span>{`Origem: ${data.origem}`}</span>
         <span>{`Horário: ${data.horario}`}</span>
       </Info>

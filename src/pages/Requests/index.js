@@ -9,8 +9,9 @@ function Requests() {
   useEffect(() => {
     async function loadMyRides() {
       try {
-        const { data } = await api.get(`/carona/${localStorage.TOKEN_KEY}`);
+        const { data } = await api.get(`/carona/motorista/${localStorage.TOKEN_KEY}`);
         setMyRides(data);
+        console.log(data)
       } catch (err) {
         console.log(err);
       }
