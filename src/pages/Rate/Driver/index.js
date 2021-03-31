@@ -1,42 +1,51 @@
 import { Form } from '@unform/web';
 import React, { useCallback, useState } from 'react';
 import { v4 as uuid } from 'uuid';
+import { useLocation } from 'react-router-dom';
 import Radio from '~/components/Radio';
+import api from '~/services/api';
 import { Container, FinishButton } from './styles';
 
 const options = [
   {
     id: uuid(),
-    value: 'Ótimo',
-    label: 'Ótimo',
-  },
-  {
-    id: uuid(),
-    value: 'Bom',
+    value: 1,
     label: 'Bom',
   },
   {
     id: uuid(),
-    value: 'Regular',
-    label: 'Regular',
+    value: 0,
+    label: 'Neutro',
   },
   {
     id: uuid(),
-    value: 'Ruim',
+    value: -1,
     label: 'Ruim',
   },
 ];
 
 function RateDriver() {
+  const { state } = useLocation();
   const [loading, setLoading] = useState(false);
 
-  const handleSubmit = useCallback(() => {
-    try {
-      setLoading(true);
-    } finally {
-      setLoading(false);
-    }
-  }, []);
+  const handleSubmit = useCallback(
+    async (data) => {
+      try {
+        setLoading(true);
+
+        await api.post('/request', {
+          idCarona: state.idCarona,
+          tipoAvaliacao: 1,
+          cortesia: data.cortesia,
+          pontualidade: data.pontualidade,
+          direcao: data.direcao,
+        });
+      } finally {
+        setLoading(false);
+      }
+    },
+    [state]
+  );
 
   return (
     <Container>
@@ -61,7 +70,7 @@ function RateDriver() {
           <h2>Cortesia</h2>
 
           <main>
-            <Radio name="coretesia" label="" options={options} />
+            <Radio name="cortesia" label="" options={options} />
           </main>
         </section>
 

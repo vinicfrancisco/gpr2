@@ -26,7 +26,7 @@
   },
   "plugins": ["react", "react-hooks", "prettier"],
   "rules": {
-    "prettier/prettier": "off",
+    "prettier/prettier": "warn",
     "react/prop-types": "off",
     "react/jsx-one-expression-per-line": "off",
     "react/jsx-props-no-spreading": "off",

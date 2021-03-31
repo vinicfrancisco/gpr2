@@ -1,42 +1,51 @@
 import React, { useState, useCallback } from 'react';
 import { Form } from '@unform/web';
 import { v4 as uuid } from 'uuid';
+import { useLocation } from 'react-router-dom';
 import Radio from '~/components/Radio';
 import { Container, FinishButton } from './styles';
+import api from '~/services/api';
 
 const options = [
   {
     id: uuid(),
-    value: 'Ótimo',
-    label: 'Ótimo',
-  },
-  {
-    id: uuid(),
-    value: 'Bom',
+    value: 1,
     label: 'Bom',
   },
   {
     id: uuid(),
-    value: 'Regular',
-    label: 'Regular',
+    value: 0,
+    label: 'Neutro',
   },
   {
     id: uuid(),
-    value: 'Ruim',
+    value: -1,
     label: 'Ruim',
   },
 ];
 
 function RateHitchhiker() {
+  const { state } = useLocation();
   const [loading, setLoading] = useState(false);
 
-  const handleSubmit = useCallback(() => {
-    try {
-      setLoading(true);
-    } finally {
-      setLoading(false);
-    }
-  }, []);
+  const handleSubmit = useCallback(
+    async (data) => {
+      try {
+        setLoading(true);
+
+        await api.post('/request', {
+          idCarona: state.idCarona,
+          tipoAvaliacao: 2,
+          cortesia: data.cortesia,
+          pontualidade: data.pontualidade,
+          direcao: data.direcao,
+        });
+      } finally {
+        setLoading(false);
+      }
+    },
+    [state]
+  );
 
   return (
     <Container>
@@ -53,7 +62,7 @@ function RateHitchhiker() {
           <h2>Cortesia</h2>
 
           <main>
-            <Radio name="coretesia" label="" options={options} />
+            <Radio name="cortesia" label="" options={options} />
           </main>
         </section>
 

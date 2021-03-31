@@ -10,6 +10,11 @@ export const Container = styled.div`
   margin-bottom: 16px;
   padding: 16px 12px;
   width: 100%;
+
+  section {
+    display: flex;
+    flex-direction: column;
+  }
 `;
 
 export const IconContainer = styled.div`
@@ -47,10 +52,22 @@ export const Buttons = styled.div`
   align-items: center;
   display: flex;
   flex-direction: row;
+  justify-content: flex-end;
 
   button {
+    align-items: center;
     border: none;
     background: none;
+    color: #272727;
+    font-size: 16px;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+
+    svg {
+      margin-bottom: 8px;
+      margin-left: 8px;
+    }
   }
 
   button + button {

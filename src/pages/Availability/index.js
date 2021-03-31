@@ -30,18 +30,24 @@ function Availability() {
       try {
         setLoading(true);
 
-        const schema = Yup.object().shape({
-          driver    : Yup.string().required("Campo Motorista é obrigatório."),
-          time      : Yup.string().required("Campo Horário de saída é obrigatório."),
-          quantity  : Yup.string().required("Campo Quantidade de passageiros é obrigatório."),
-          location  : Yup.string().required("Campo Local de origem é obrigatório."),
-          contact   : Yup.string().required("Campo Contato de origem é obrigatório."),
-          days      : Yup.string().required('Informe pelo menos um dia')
-        });
+        // const schema = Yup.object().shape({
+        //   driver: Yup.string().required('Campo Motorista é obrigatório.'),
+        //   time: Yup.string().required('Campo Horário de saída é obrigatório.'),
+        //   quantity: Yup.string().required(
+        //     'Campo Quantidade de passageiros é obrigatório.'
+        //   ),
+        //   location: Yup.string().required(
+        //     'Campo Local de origem é obrigatório.'
+        //   ),
+        //   contact: Yup.string().required(
+        //     'Campo Contato de origem é obrigatório.'
+        //   ),
+        //   days: Yup.string().required('Informe pelo menos um dia'),
+        // });
 
-        await schema.validate(data, {
-          abortEarly: false,
-        });
+        // await schema.validate(data, {
+        //   abortEarly: false,
+        // });
 
         await api.post('/carona', {
           origem: data.location,
@@ -58,7 +64,6 @@ function Availability() {
           const errors = getValidationErrors(err);
           formRef.current.setErrors(errors);
         }
-        console.log(err);
       } finally {
         setLoading(false);
       }
