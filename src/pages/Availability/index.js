@@ -5,6 +5,7 @@ import { useHistory } from 'react-router-dom';
 import * as Yup from 'yup';
 import Input from '~/components/Input';
 import Checkbox from '~/components/Checkbox';
+import DatePicker from '~/components/Datepicker';
 import api from '~/services/api';
 import { Container, FinishButton } from './styles';
 import getValidationErrors from '~/utils/getValidationErrors';
@@ -48,12 +49,14 @@ function Availability() {
         // await schema.validate(data, {
         //   abortEarly: false,
         // });
-
+        console.log(data);
         await api.post('/carona', {
           origem: data.location,
           vagasDisponiveis: data.quantity,
           diasDisponiveis: data.days.join(', '),
           motorista: localStorage.TOKEN_KEY,
+          dataInicio: data.dataInicio,
+          dataFim: data.dataFim,
           horario: data.time,
           contato: data.contact,
         });
@@ -97,6 +100,8 @@ function Availability() {
           label="Contato"
           placeholder="Digite o seu contato"
         />
+        <DatePicker name="dataInicio" label="Data Inicio" />
+        <DatePicker name="dataFim" label="Data Fim" />
 
         <Checkbox name="days" options={daysOptions} />
 

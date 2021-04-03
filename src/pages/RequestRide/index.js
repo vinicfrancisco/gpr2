@@ -1,34 +1,41 @@
-import React, { useEffect /* useState */ } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
+import { Form } from '@unform/web';
 import { useLocation, useHistory } from 'react-router-dom';
 import { Container } from './styles';
 import api from '~/services/api';
 
+import DatePicker from '~/components/Datepicker';
+
 function RequestRide() {
   const { state } = useLocation();
   const { push } = useHistory();
+  const [motoristaName, setMotoristaName] = useState('');
 
   useEffect(() => {
     async function loadRides() {
       try {
-        await api.get(`/carona/motorista/${state.ride.motorista}`);
+        const { data } = await api.get(`/users/${state.ride.motorista}`);
+        setMotoristaName(data.name);
       } catch (err) {
         console.log(err);
       }
     }
     loadRides();
-  }, [state]);
+  }, [state, motoristaName]);
 
-  async function handleSubmit() {
+  const handleSubmit = useCallback(async (data) => {
+    console.log(data);
     try {
       await api.post(`/carona/solicitar`, {
         idCarona: state.ride.id,
         idUser: localStorage.TOKEN_KEY,
+        dataFim: data.dataFim,
       });
       push('/home');
     } catch (err) {
       console.log(err);
     }
-  }
+  });
 
   return (
     <Container>
@@ -36,7 +43,7 @@ function RequestRide() {
         <div>
           <strong>Motorista:</strong>
 
-          <span>{state?.ride.name || ''}</span>
+          <span>{motoristaName || ''}</span>
         </div>
 
         <div>
@@ -63,9 +70,10 @@ function RequestRide() {
           <span>{state?.ride.diasDisponiveis}</span>
         </div>
 
-        <button type="button" onClick={() => handleSubmit()}>
-          SOLICITAR
-        </button>
+        <Form onSubmit={handleSubmit}>
+          <DatePicker name="dataFim" label="Data Fim" />
+          <button type="submit">SOLICITAR</button>
+        </Form>
       </section>
     </Container>
   );

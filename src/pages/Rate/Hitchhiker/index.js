@@ -32,10 +32,9 @@ function RateHitchhiker() {
     async (data) => {
       try {
         setLoading(true);
-
-        await api.post('/request', {
+        await api.post('/carona/avaliar', {
           idCarona: state.idCarona,
-          tipoAvaliacao: 2,
+          tipoAvaliacao: '2',
           cortesia: data.cortesia,
           pontualidade: data.pontualidade,
           direcao: data.direcao,
