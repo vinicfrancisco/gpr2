@@ -63,6 +63,12 @@ function DefaultLayout() {
         return 'Avaliar motorista';
       case '/rate/hitchhiker':
         return 'Avaliar caroneiro';
+      case '/rankingDriver':
+        return 'Ranking Motorista';
+      case '/rankingHitchhiker':
+        return 'Ranking Caroneiro';
+      case '/evaluation':
+        return 'Avaliações';
       default:
         return '';
     }
@@ -80,6 +86,9 @@ function DefaultLayout() {
             <Link to="/home">Home</Link>
           </li>
           <li>
+            <Link to="/evaluation">Avaliações</Link>
+          </li>
+          <li>
             <Link to="/rides">Caronas</Link>
           </li>
           <li>
@@ -87,6 +96,12 @@ function DefaultLayout() {
           </li>
           <li>
             <Link to="/availability">Disponibilidade</Link>
+          </li>
+          <li>
+            <Link to="/rankingDriver">Ranking Motorista</Link>
+          </li>
+          <li>
+            <Link to="/rankingHitchhiker">Ranking Caroneiro</Link>
           </li>
           <li>
             <FiLogOut />

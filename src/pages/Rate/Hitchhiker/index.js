@@ -1,7 +1,7 @@
 import React, { useState, useCallback } from 'react';
 import { Form } from '@unform/web';
 import { v4 as uuid } from 'uuid';
-import { useLocation } from 'react-router-dom';
+import { useLocation, useHistory } from 'react-router-dom';
 import Radio from '~/components/Radio';
 import { Container, FinishButton } from './styles';
 import api from '~/services/api';
@@ -25,6 +25,7 @@ const options = [
 ];
 
 function RateHitchhiker() {
+  const history = useHistory();
   const { state } = useLocation();
   const [loading, setLoading] = useState(false);
 
@@ -66,7 +67,11 @@ function RateHitchhiker() {
         </section>
 
         <FinishButton>
-          <button disabled={loading} type="submit">
+          <button
+            disabled={loading}
+            type="submit"
+            onClick={() => history.goBack()}
+          >
             Confirmar
           </button>
         </FinishButton>

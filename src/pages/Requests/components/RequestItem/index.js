@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { FiUser, FiCheck, FiX, FiStar } from 'react-icons/fi';
+import { FiUser, FiCheck, FiX } from 'react-icons/fi';
 import { useHistory } from 'react-router-dom';
 import api from '~/services/api';
 import { Container, IconContainer, Info, Buttons } from './styles';
@@ -66,15 +66,6 @@ function RequestItem({ data }) {
               >
                 Aprovada
                 <FiCheck size={36} color="#5cb85c" />
-              </button>
-            </Buttons>
-
-            <Buttons>
-              <button
-                type="button"
-                onClick={() => push('/rate/driver', { idCarona: data.id })}
-              >
-                Avaliar <FiStar size={30} color="#ffa500" />
               </button>
             </Buttons>
           </>

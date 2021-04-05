@@ -11,6 +11,9 @@ import SignIn from '~/pages/SignIn';
 import SignUp from '~/pages/SignUp';
 import RateDriver from '~/pages/Rate/Driver';
 import RateHitchhiker from '~/pages/Rate/Hitchhiker';
+import RankingDriver from '~/pages/Ranking/Driver';
+import RankingHitchhiker from '~/pages/Ranking/Hitchhiker';
+import Evaluation from '~/pages/Evaluation';
 
 function Routes() {
   return (
@@ -24,6 +27,10 @@ function Routes() {
       <Route path="/request-ride" exact component={RequestRide} />
       <Route path="/rate/driver" exact component={RateDriver} />
       <Route path="/rate/hitchhiker" exact component={RateHitchhiker} />
+      <Route path="/rankingDriver" exact component={RankingDriver} />
+      <Route path="/rankingHitchhiker" exact component={RankingHitchhiker} />
+      <Route path="/rankingHitchhiker" exact component={RankingHitchhiker} />
+      <Route path="/evaluation" exact component={Evaluation} />
     </Switch>
   );
 }

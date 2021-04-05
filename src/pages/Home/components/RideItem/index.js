@@ -1,11 +1,12 @@
 import React, { useEffect, useState } from 'react';
 import { useHistory } from 'react-router-dom';
-import { FiUser, FiCheck, FiX, FiStar } from 'react-icons/fi';
+import { FiUser, FiCheck, FiX } from 'react-icons/fi';
 import api from '~/services/api';
 import { Container, IconContainer, Info, Buttons } from './styles';
 
 function RequestItem({ data }) {
   const [myRide, setMyRide] = useState([]);
+  const [motoristaName, setMotoristaName] = useState([]);
 
   const { push } = useHistory();
 
@@ -13,7 +14,9 @@ function RequestItem({ data }) {
     async function loadMyRide() {
       try {
         const { data: ride } = await api.get(`/carona/${data.id}`);
+        const { data: name } = await api.get(`/users/${ride.motorista}`);
         setMyRide(ride);
+        setMotoristaName(name.name);
       } catch (err) {
         console.log(err);
       }
@@ -29,7 +32,7 @@ function RequestItem({ data }) {
       </IconContainer>
 
       <Info>
-        <h4>Caroneiro Xyz</h4>
+        <h4>{motoristaName}</h4>
         <span>Local: {myRide.origem}</span>
         <span>{myRide.diasDisponiveis}</span>
         <span>Horário: {myRide.horario}</span>
@@ -47,15 +50,6 @@ function RequestItem({ data }) {
                 }
               >
                 Aprovada <FiCheck size={36} color="#5cb85c" />
-              </button>
-            </Buttons>
-
-            <Buttons>
-              <button
-                type="button"
-                onClick={() => push('/rate/driver', { idCarona: data.id })}
-              >
-                Avaliar <FiStar size={30} color="#ffa500" />
               </button>
             </Buttons>
           </>

@@ -1,7 +1,7 @@
 import { Form } from '@unform/web';
 import React, { useCallback, useState } from 'react';
 import { v4 as uuid } from 'uuid';
-import { useLocation } from 'react-router-dom';
+import { useLocation, useHistory } from 'react-router-dom';
 import Radio from '~/components/Radio';
 import api from '~/services/api';
 import { Container, FinishButton } from './styles';
@@ -25,6 +25,7 @@ const options = [
 ];
 
 function RateDriver() {
+  const history = useHistory();
   const { state } = useLocation();
   const [loading, setLoading] = useState(false);
 
@@ -74,7 +75,11 @@ function RateDriver() {
         </section>
 
         <FinishButton>
-          <button disabled={loading} type="submit">
+          <button
+            disabled={loading}
+            type="submit"
+            onClick={() => history.goBack()}
+          >
             Confirmar
           </button>
         </FinishButton>
