@@ -8,12 +8,16 @@ function RequestItem({ data }) {
   const { push } = useHistory();
 
   const [myRide, setMyRide] = useState([]);
+  const [userName, setUserName] = useState('');
 
   useEffect(() => {
     async function loadMyRide() {
       try {
         const { data: ride } = await api.get(`/carona/${data.id}`);
+        const { data: name } = await api.get(`/users/${data.user_id}`);
+        setUserName(name.name);
         setMyRide(ride);
+        console.log(ride)
       } catch (err) {
         console.log(err);
       }
@@ -47,7 +51,7 @@ function RequestItem({ data }) {
       </IconContainer>
 
       <Info>
-        <h4>Caroneiro Xyz</h4>
+        <h4>{userName}</h4>
         <span>Local: {myRide.origem}</span>
         <span>{myRide.diasDisponiveis}</span>
         <span>Horário: {myRide.horario}</span>

@@ -26,7 +26,7 @@ function Evaluation() {
     <Container>
       {evaluations?.map((item) => (
         <>
-          {item.avaliado === 0 && (
+          {item.avaliado === '0' && (
             <EvaluationItem data={item} key={String(item)} />
           )}
         </>
