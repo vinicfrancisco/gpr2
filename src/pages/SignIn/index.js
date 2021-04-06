@@ -1,6 +1,6 @@
 import React, { useCallback, useState } from 'react';
 import { Form } from '@unform/web';
-import { useHistory, Link } from 'react-router-dom';
+import { useHistory } from 'react-router-dom';
 import { FaCarAlt } from 'react-icons/fa';
 import Input from '~/components/Input';
 import api from '~/services/api';
@@ -47,12 +47,12 @@ function SignIn() {
       </Form>
       <br />
       <A href="/signup">Ainda não possui conta? Registre-se</A>
-      <li>
-        <Link to="/rankingDriver">Ranking Motorista</Link>
-      </li>
-      <li>
-        <Link to="/rankingHitchhiker">Ranking Caroneiro</Link>
-      </li>
+      <br />
+      <hr />
+      <br />
+      <A href="/rankingDriver">Ranking Motorista</A>
+      <br />
+      <A href="/rankingHitchhiker">Ranking Caroneiro</A>
     </Container>
   );
 }
