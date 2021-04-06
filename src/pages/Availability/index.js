@@ -55,8 +55,7 @@ function Availability() {
           vagasDisponiveis: data.quantity,
           diasDisponiveis: data.days.join(', '),
           motorista: localStorage.TOKEN_KEY,
-          dataInicio: data.dataInicio,
-          dataFim: data.dataFim,
+          
           horario: data.time,
           contato: data.contact,
         });
