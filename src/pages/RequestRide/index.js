@@ -24,12 +24,14 @@ function RequestRide() {
   }, [state, motoristaName]);
 
   const handleSubmit = useCallback(async (data) => {
-    console.log(data);
+    const selectedData = `${data.dataFim.getDate()}/${
+      data.dataFim.getMonth() + 1
+    }/${data.dataFim.getFullYear()}`;
     try {
       await api.post(`/carona/solicitar`, {
         idCarona: state.ride.id,
         idUser: localStorage.TOKEN_KEY,
-        dataFim: data.dataFim,
+        dataFim: selectedData,
       });
       push('/home');
     } catch (err) {

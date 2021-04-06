@@ -43,7 +43,6 @@ const Datepicker = ({ name, label, placeholder, ...rest }) => {
       {label && <span>{label}</span>}
 
       <DatePicker
-        locale="pt-BR"
         dateFormat="dd/MM/yyyy"
         placeholderText={placeholder}
         ref={datepickerRef}
